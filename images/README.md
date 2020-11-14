@@ -1,1 +1,1 @@
-This directory contains all the external images used in this project
+## This directory contains all the external images used in this project
