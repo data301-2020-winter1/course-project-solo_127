@@ -20,13 +20,14 @@ def load_and_process(url_or_path_to_csv_file):
     return animedf
 
 def means_of_genres(genredf):
+    # Transform the strings of genres into arrays
     genredf['genre'] = genredf['genre'].transform(
         lambda x: x.split(', ')
-    ).reset_index(
-    ).explode(
+    )
+
+    # Split the arrays into individual rows, group them by genre, then sort in ascending order by rating
+    genredf = genredf.explode(
         column = 'genre'
-    ).drop(
-        'index', axis = 1
     ).groupby(
         'genre'
     ).mean(
