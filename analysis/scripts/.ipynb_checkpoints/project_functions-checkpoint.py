@@ -21,15 +21,8 @@ def load_and_process(url_or_path_to_csv_file):
 
 def means_of_genres(df):
     genredf = df.copy()
-    # Transform the strings of genres into arrays
-    genredf['genre'] = genredf['genre'].transform(
-        lambda x: x.split(', ')
-    )
-
-    # Split the arrays into individual rows, group them by genre, then sort in ascending order by rating
-    genredf = genredf.explode(
-        column = 'genre'
-    ).groupby(
+    # Gropu genres together, take the mean, and sort by rating
+    split_column(genredf).groupby(
         'genre'
     ).mean(
     ).sort_values(
@@ -37,3 +30,15 @@ def means_of_genres(df):
     ).reset_index()
     
     return genredf
+
+def split_column(df):
+    genredf = df.copy()
+    # Transform the strings of genres into lists
+    genredf['genre'] = genredf['genre'].transform(
+        lambda x: x.split(', ')
+    )
+
+    # Split the lists into individual rows
+    genredf = genredf.explode(
+        column = 'genre'
+    )
