@@ -42,3 +42,5 @@ def split_column(df):
     genredf = genredf.explode(
         column = 'genre'
     )
+    
+    return genredf
