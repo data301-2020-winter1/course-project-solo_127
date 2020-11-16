@@ -19,7 +19,8 @@ def load_and_process(url_or_path_to_csv_file):
     
     return animedf
 
-def means_of_genres(genredf):
+def means_of_genres(df):
+    genredf = df.copy()
     # Transform the strings of genres into arrays
     genredf['genre'] = genredf['genre'].transform(
         lambda x: x.split(', ')
